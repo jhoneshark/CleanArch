@@ -1,6 +1,6 @@
 using Aplication.Interfaces;
+using Application.DTOs;
 using Asp.Versioning;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Apiv1;
@@ -18,9 +18,9 @@ public class SolidController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> ProcessOrder([FromBody] Order order)
+    public async Task<IActionResult> ProcessOrder([FromBody] OrderRequestDTO requestDto)
     {
-        await _orderProcessorService.ProcessOrderAsync(order);
+        await _orderProcessorService.ProcessOrderAsync(requestDto);
         return Ok(new { message = "Pedido processado com sucesso!" });
     }
 

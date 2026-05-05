@@ -1,8 +1,9 @@
+using Application.DTOs;
 using Domain.Entities;
 
 namespace Aplication.Interfaces;
 
 public interface IOrderProcessorService
 {
-    Task ProcessOrderAsync(Order order);
+    Task ProcessOrderAsync(OrderRequestDTO requestDto);
 }

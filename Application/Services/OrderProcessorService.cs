@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Aplication.Interfaces;
+using Application.DTOs;
 
 namespace Application.Services;
 
@@ -17,8 +18,10 @@ public class OrderProcessorService : IOrderProcessorService
         _orderCalculator = orderCalculator;
     }
 
-    public async Task ProcessOrderAsync(Order order)
+    public async Task ProcessOrderAsync(OrderRequestDTO requestDto)
     {
+        var order = new Order(requestDto.Amount);
+        
         if (order == null) throw new ArgumentNullException(nameof(order), "O pedido não pode ser nulo.");
         
         await _inventoryChecker.check(order);
