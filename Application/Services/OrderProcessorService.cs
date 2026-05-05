@@ -25,6 +25,6 @@ public class OrderProcessorService : IOrderProcessorService
         await _paymentProcessor.process(order);
         await _orderCalculator.calculate(order);
         
-        Console.WriteLine($"Pedido processado com sucesso! ID: {order.Uuid}, Valor: {order.Amount}");
+        Console.WriteLine($"Pedido processado com sucesso! ID: {order.Uuid}, Valor: {order.OriginalAmount}");
     }
 }
