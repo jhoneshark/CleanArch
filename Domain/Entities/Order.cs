@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Domain.Interfaces;
 
 namespace Domain.Entities;
@@ -10,16 +11,21 @@ public class Order
     public decimal DiscountApplied { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
-    // Construtor simples para inicializar o pedido
-    public Order(decimal amount)
+    // Construtor vazio necessário para o desserializador JSON
+    public Order()
     {
-        if (amount <= 0)
+        Uuid = Guid.NewGuid();
+        CreatedAt = DateTime.UtcNow;
+    }
+
+    // Construtor simples para inicializar o pedido
+    public Order(decimal originalAmount) : this()
+    {
+        if (originalAmount <= 0)
             throw new ArgumentException("O valor do pedido deve ser maior que zero.");
 
-        Uuid = Guid.NewGuid();
-        OriginalAmount = amount;
-        FinalAmount = amount; // Inicialmente o total é o valor original
-        CreatedAt = DateTime.UtcNow;
+        OriginalAmount = originalAmount;
+        FinalAmount = originalAmount; // Inicialmente o total é o valor original
     }
 
     /// <summary>
